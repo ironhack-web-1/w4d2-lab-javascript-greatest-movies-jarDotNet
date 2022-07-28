@@ -38,6 +38,49 @@ describe('Function "getAllDirectors"', () => {
       'Quentin Tarantino'
     ]);
   });
+
+
+// Iteration 1 Bouns: All directors without duplicates
+  it('should return a clean array without duplicates', () => {
+    const testArr = [
+      {
+        title: 'Paths of Glory',
+        year: 1957,
+        director: 'Stanley Kubrick',
+        duration: '1h 28min',
+        genre: ['Drama', 'War'],
+        score: 8.4
+      },
+      {
+        title: 'A Clockwork Orange',
+        year: 1971,
+        director: 'Stanley Kubrick',
+        duration: '2h 16min',
+        genre: ['Crime', 'Drama', 'Sci-Fi'],
+        score: 8.3
+      },
+      {
+        title: 'Pulp Fiction',
+        year: 1994,
+        director: 'Quentin Tarantino',
+        duration: '2h 34min',
+        genre: ['Crime', 'Drama'],
+        score: 8.9
+      },
+      {
+        title: 'Django Unchained',
+        year: 2012,
+        director: 'Quentin Tarantino',
+        duration: '2h 45min',
+        genre: ['Drama', 'Western'],
+        score: 8.4
+      }
+    ];
+    expect(getAllDirectors(testArr)).toEqual([
+      'Stanley Kubrick',
+      'Quentin Tarantino'
+    ]);
+  });
 });
 
 // Iteration 2
