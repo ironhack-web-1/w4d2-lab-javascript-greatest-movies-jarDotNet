@@ -92,9 +92,8 @@ function bestYearAvg(moviesArray) {
             (movies, movie) => { 
                 const { year, score } = movie;
 
-                let item = movies.find(item => item.year === year) || { year: year, scores: []};
+                let item = movies.find(item => item.year === year) || defaultMovie(year);
                 item.scores.push(score);
-                item.average = averageNumbers(item.scores)
 
                 return item.scores.length == 1
                     ? [...movies, item]
@@ -103,27 +102,20 @@ function bestYearAvg(moviesArray) {
             , []
         );
 
-        const max = scoresByYear.reduce(
-            (prev, current) => (prev.average > current.average) ? prev : current
-        );
+    const max = scoresByYear.reduce(
+        (prev, current) => (prev.calculateAverage() > current.calculateAverage()) ? prev : current
+    );
 
-    return `The best year was ${max.year} with an average score of ${max.average}`;
+    return `The best year was ${max.year} with an average score of ${max.calculateAverage()}`;
 }
 
-function sumNumbers(arrayOfNumbers) {
-  
-    if (arrayOfNumbers === null)
-      return 0;
-  
-    return arrayOfNumbers.reduce((sum, num) => sum + num, 0);
-}
-
-function averageNumbers(arrayOfNumbers) {
-
-    if (arrayOfNumbers === null || arrayOfNumbers.length === 0)
-      return null;
-  
-    let sum = sumNumbers(arrayOfNumbers);
-  
-    return sum / arrayOfNumbers.length;
+function defaultMovie(year) {
+    return { 
+        year: year, 
+        scores: [],
+        calculateAverage : function () {
+            let total = this.scores.reduce((sum, num) => sum + num, 0);
+            return (total / this.scores.length) || 0;
+        }
+    };
 }
